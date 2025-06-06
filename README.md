@@ -5,7 +5,12 @@ This guide provides a easy way to setup atlatis locally to enable more collabora
 The below are prerequite for using atlantis, they must have been installed.
 - Terraform - Installation guide can be found [HERE](https://developer.hashicorp.com/terraform/install) 
 - ngrok - Installation guide can be found [HERE](https://ngrok.com/downloads/mac-os)
-- Ensure a dedicated user with both the access and secret key has been created for atlantis to have access to all resources in AWS.
+- Ensure a dedicated user with both the access and secret key has been created for atlantis to have access to all resources in AWS and saved in this file path `.aws/credentials` in your home directory. The file should look like something below.
+  - ```
+    [default]
+    aws_access_key_id = xxxxxxx
+    aws_secret_access_key = xxxxxxxx
+    ```
 
 ## Step 1
 - Start ngrok by running the below command if you install `ngrok` via brew, copy and keep the forwarding long url, it should like this `https://3456-2003-c7-3713-91c2-3482-6209-8dd2-829c.ngrok-free.app`.
@@ -49,7 +54,7 @@ ngrok http 4141
   - Please keep the token safe.
  
 ## Step 6
-- Create a start.sh file with the below to start your atlantis application
+- Create a start.sh file in any directory of your choice with the below to start your atlantis application
 ```
 #!/bin/bash
 URL="Your ngrok url in Step 1"
@@ -65,4 +70,11 @@ atlantis server \
 --gh-webhook-secret="$SECRET" \
 --repo-allowlist="$REPO_ALLOWLIST"
 ```
+- To start Atlantis
+  - Run `chmod +x start.sh` on your terminal to make the file executable ( Ensure you are in the directory where the `start.sh` file is ).
+  - Run `./start.sh` to start Atlantis.
+ 
+## Step 7
+- Test the set up by creating a pull request of push a terraform configuration to the branch
+- Atlantis should kick in to run plan on your branch.
 
