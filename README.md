@@ -27,26 +27,36 @@ ngrok http 4141
 ./ngrok http 4141
 ```
 
-## Step 2
+## Step 1
 - Create a random string character. You can generate one [HERE](https://www.random.org/strings/) ( Keep it also )
 - Feel free to choose the length of your choice, example `18`, `24` random string long.
 
-## Step 3
+## Step 2
 - Create `github token` for `Atlantis` to communicate with `Github`.
   - Watch this 3 mins [Video](https://www.youtube.com/watch?v=m5SChqEi314) on how to create Github token.
   - Please keep the token safe.
 
-## Step 4
+## Step 3
 - Create the `repository` for your project.
 - This `repository` should be where you want to provision your cloud infrastructure from.
+
+## Step 4
+- Start `ngrok` by running the below command if you install `ngrok` via brew, copy and keep the forwarding long url, it should like this `https://3456-2003-c7-3713-91c2-3482-6209-8dd2-829c.ngrok-free.app`.
+```
+ngrok http 4141
+```
+- Start `ngrok` with the below command if you install `ngrok` with manual download (ensure you are in the directory of the ngrok)
+```
+./ngrok http 4141
+```
 
 ## Step 5
 - Create a `start.sh` file in any directory of your choice with the below to start your `Atlantis` application
 ```
 #!/bin/bash
-URL="Your ngrok url in Step 1"
-SECRET="Your random string generated in Step 2"
-TOKEN="Your Github Token in Step 5"
+URL="Your ngrok url in Step 4"
+SECRET="Your random string generated in Step 1"
+TOKEN="Your Github Token in Step 2"
 USERNAME="Your Github Username"
 REPO_ALLOWLIST="github.com/YourGitHubUsername/YourRepositoryName"
 
@@ -69,7 +79,7 @@ atlantis server \
   - set Payload URL to your `ngrok` url with `/events` at the end. Ex. `https://3456-2003-c7-3713-91c2-3482-6209-8dd2-829c.ngrok-free.app/events`
   - double-check you added `/events` to the end of your `ngrok URL`.
   - set Content type to `application/json`.
-  - set `Secret` to your random string you generated on `Step 2`.
+  - set `Secret` to your random string you generated on `Step 1`.
   - select `Let me select individual events`.
   - check the boxes
     - Pull request reviews
